@@ -77,19 +77,26 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 5c) PHPUnit
 6) sail artisan migrate
 7) Changer méthode connexion email -> password ? Si non, skip 7
-7a) Changer login request: App > Http > Requests > Auth > LoginRequest.php, 'email' to 'username' 
+7a) Changer migration: database > migrations > 2014_10_12_0000000_create_users_table.php
+	Replace 'name' by 'username' on line 16; add ->unique()
+7b) Changer factory & seeder
+	database > factories > UserFactory.php
+		'name' => fake()->name() to 'username' => fake()->userName()
+	database > seeders > DatabaseSeeder.php
+		Line 18: 'name' to 'username'
+7c) Changer login request: App > Http > Requests > Auth > LoginRequest.php, 'email' to 'username' 
 	Line 44
 	Line 48
 	Line 71
 	Line 83
-7b) Changer 'ProfileUpdateRequest': App > Http > Requests > ProfileUpdateRequest.php
+7d) Changer 'ProfileUpdateRequest': App > Http > Requests > ProfileUpdateRequest.php
 	Line 19: 'name' to 'username', copy/paste Rule::unique from email to username
-7c) Changer 'register' controller: App > Http > Controllers > Auth > RegisteredUserController.php
+7e) Changer 'register' controller: App > Http > Controllers > Auth > RegisteredUserController.php
 	Line 34: change 'name' to 'username', add "'unique:'.User::class" in array
 	Line 40: 'name' => $request->name to 'username' => $request->username
-7d) Changer 'user' model: App > Http > Models > User.php
+7f) Changer 'user' model: App > Http > Models > User.php
 	Line 21: 'name' to 'username'
-7e) Changer views: 
+7g) Changer views: 
 	resources > views > auth > login.blade.php
 		Replace 'email' with 'username'
 			Lines 10, 11
@@ -103,3 +110,15 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 	resources > views > profile > partials > update-profile-information-form.blade.php
 		Replace 'name' with 'username'
 			Lines 21, 22, 23
+8) Create files
+	Make model + controller + migration + seeder
+		sail artisan make:model -msc Posts
+9) Edit migrations, add columns, etc.
+	text
+	longText
+	boolean
+	float
+	default
+	nullable
+10) Generate seeders based on migration
+11) Talk about other Artisan commands
