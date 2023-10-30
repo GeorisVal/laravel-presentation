@@ -64,3 +64,42 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Steps
+
+1) sail up -d
+2) npm install
+3) npm run dev
+4) sail composer require laravel/breeze --dev
+5) sail artisan breeze:install
+5a) Breeze with Alpine
+5b) Yes
+5c) PHPUnit
+6) sail artisan migrate
+7) Changer méthode connexion email -> password ? Si non, skip 7
+7a) Changer login request: App > Http > Requests > Auth > LoginRequest.php, 'email' to 'username' 
+	Line 44
+	Line 48
+	Line 71
+	Line 83
+7b) Changer 'ProfileUpdateRequest': App > Http > Requests > ProfileUpdateRequest.php
+	Line 19: 'name' to 'username', copy/paste Rule::unique from email to username
+7c) Changer 'register' controller: App > Http > Controllers > Auth > RegisteredUserController.php
+	Line 34: change 'name' to 'username', add "'unique:'.User::class" in array
+	Line 40: 'name' => $request->name to 'username' => $request->username
+7d) Changer 'user' model: App > Http > Models > User.php
+	Line 21: 'name' to 'username'
+7e) Changer views: 
+	resources > views > auth > login.blade.php
+		Replace 'email' with 'username'
+			Lines 10, 11
+	resources > views > auth > register.blade.php
+		Replace 'name' with 'username'
+			Lines 7, 8, 9
+	resources > views > layouts > navigation.blade.php
+		Replace 'name' with 'username'
+			Lines 26, 78
+		Remove useless line 79
+	resources > views > profile > partials > update-profile-information-form.blade.php
+		Replace 'name' with 'username'
+			Lines 21, 22, 23
