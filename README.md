@@ -71,10 +71,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 2) npm install
 3) npm run dev
 4) sail composer require laravel/breeze --dev
-5) sail artisan breeze:install
-5a) Breeze with Alpine
-5b) Yes
-5c) PHPUnit
+5) sail artisan breeze:install 
+   Breeze with Alpine
+   Yes
+   PHPUnit
 6) sail artisan migrate
 7) Changer méthode connexion email -> password ? Si non, skip 7
 7a) Changer migration: database > migrations > 2014_10_12_0000000_create_users_table.php
@@ -120,5 +120,19 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 	float
 	default
 	nullable
-10) Generate seeders based on migration
-11) Talk about other Artisan commands
+10) Talk about routes and middlewares
+11) Generate new middleware with sail artisan make:middleware isAdmin
+11a)
+    if(Auth::user() && Auth::user()->isAdmin === 1) {
+        return $next($request);
+    }
+
+        return redirect(RouteServiceProvider::HOME)->with('error', __(('text.access_denied')));
+
+12) Generate seeders based on migration
+13) Talk about other Artisan commands
+14) Tinker
+    App\Models\User::factory()->create(['name' => 'Billy']) (q to exit)
+    $user = App\Models\User::find(id) (q to exit)
+    $user->update(['email' => 'test@email.co'])
+    $user (q to exit)
