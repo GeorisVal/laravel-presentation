@@ -67,11 +67,11 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Steps
 
-1) sail up -d
-2) npm install
-3) npm run dev
-4) sail composer require laravel/breeze --dev
-5) sail artisan breeze:install 
+1) `sail up -d`
+2) `npm install`
+3) `npm run dev`
+4) `sail composer require laravel/breeze --dev`
+5) `sail artisan breeze:install `
    - Breeze with Alpine
    - Yes
    - PHPUnit
@@ -112,5 +112,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 			- Lines 21, 22, 23
 8) Create files
    - Make model + controller + migration + seeder
-		- sail artisan make:model -msc Posts
+		- `sail artisan make:model -msc Posts`
 
